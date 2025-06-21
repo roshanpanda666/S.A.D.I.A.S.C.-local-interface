@@ -29,6 +29,8 @@ def start_detection():
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
 
+            #after face got detected
+            
             if len(faces) > 0 and not sound_played:
                 sound_played = True
                 if selected_sound is not None:
