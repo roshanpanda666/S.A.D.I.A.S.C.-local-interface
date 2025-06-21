@@ -2,7 +2,18 @@ import cv2
 import threading
 import customtkinter as ctk
 from sound import Playsound1, playsound2  # Defined in sound.py
+from datetime import datetime
 
+def log_detection_data(sound_name, cam_index):
+    now = datetime.now().strftime("%H:%M:%S")
+    with open("log.txt", "a") as file:
+        file.write(f"alarm: {sound_name}\n")
+        file.write("face detection: true\n")
+        file.write(f"time: {now}\n")
+        file.write(f"camera: {cam_index}\n")
+        file.write("____________________________\n")
+
+        
 # Haar cascade
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
@@ -35,6 +46,10 @@ def start_detection():
                 sound_played = True
                 if selected_sound is not None:
                     threading.Thread(target=selected_sound, daemon=True).start()
+                    log_detection_data(
+                    sound_name=selected_sound.__name__,
+                    cam_index=cam_index
+                    )
             elif len(faces) == 0:
                 sound_played = False
 

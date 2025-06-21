@@ -1,0 +1,20 @@
+alarm: playsound2
+face detection: true
+time: 01:27:40
+camera: 1
+____________________________
+alarm: playsound2
+face detection: true
+time: 01:27:41
+camera: 1
+____________________________
+alarm: playsound2
+face detection: true
+time: 01:27:41
+camera: 1
+____________________________
+alarm: playsound2
+face detection: true
+time: 01:27:42
+camera: 1
+____________________________
