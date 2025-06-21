@@ -24,12 +24,12 @@ def push_latest_log():
 
         with open("log.txt", "r") as file:
             lines = file.readlines()
-            if len(lines) < 5:
+            if len(lines) < 6:
                 print("[DB Logger] Not enough lines to extract a full log block.")
                 return
 
             # Grab the last 5 lines (assumed to be one log entry block)
-            last_five = ''.join(lines[-5:]).strip()
+            last_five = ''.join(lines[-6:]).strip()
             now = datetime.now()
 
             # Format as a document

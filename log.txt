@@ -110,3 +110,15 @@ time: 03:13:55
 camera: 1
 number: +917608946420
 ____________________________
+alarm: playsound2
+face detection: true
+time: 03:16:09
+camera: 1
+number: +917608946420
+____________________________
+alarm: playsound2
+face detection: true
+time: 03:17:17
+camera: 1
+number: +917608946420
+____________________________
