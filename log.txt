@@ -18,3 +18,95 @@ face detection: true
 time: 01:27:42
 camera: 1
 ____________________________
+alarm: playsound2
+face detection: true
+time: 02:49:10
+camera: 1
+____________________________
+alarm: playsound2
+face detection: true
+time: 02:49:10
+camera: 1
+____________________________
+alarm: playsound2
+face detection: true
+time: 02:49:11
+camera: 1
+____________________________
+alarm: playsound2
+face detection: true
+time: 02:49:16
+camera: 1
+____________________________
+alarm: playsound2
+face detection: true
+time: 02:49:16
+camera: 1
+____________________________
+alarm: playsound2
+face detection: true
+time: 02:49:17
+camera: 1
+____________________________
+alarm: playsound2
+face detection: true
+time: 02:49:18
+camera: 1
+____________________________
+alarm: playsound2
+face detection: true
+time: 03:05:34
+camera: 1
+____________________________
+alarm: playsound2
+face detection: true
+time: 03:09:12
+camera: 1
+____________________________
+alarm: playsound2
+face detection: true
+time: 03:12:17
+camera: 1
+____________________________
+alarm: playsound2
+face detection: true
+time: 03:13:46
+camera: 1
+number: +917608946420
+____________________________
+alarm: playsound2
+face detection: true
+time: 03:13:49
+camera: 1
+number: +917608946420
+____________________________
+alarm: playsound2
+face detection: true
+time: 03:13:50
+camera: 1
+number: +917608946420
+____________________________
+alarm: playsound2
+face detection: true
+time: 03:13:51
+camera: 1
+number: +917608946420
+____________________________
+alarm: playsound2
+face detection: true
+time: 03:13:51
+camera: 1
+number: +917608946420
+____________________________
+alarm: playsound2
+face detection: true
+time: 03:13:54
+camera: 1
+number: +917608946420
+____________________________
+alarm: playsound2
+face detection: true
+time: 03:13:55
+camera: 1
+number: +917608946420
+____________________________

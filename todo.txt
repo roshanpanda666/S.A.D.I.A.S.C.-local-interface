@@ -1,0 +1,5 @@
+make the gui better 
+
+almost work done 
+
+work on the web dashboard 

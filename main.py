@@ -3,15 +3,31 @@ import threading
 import customtkinter as ctk
 from sound import Playsound1, playsound2  # Defined in sound.py
 from datetime import datetime
+import subprocess
+from sendmessage import send_intruder_alert
+from dblogger import push_latest_log
+
+from datetime import datetime
+import os
 
 def log_detection_data(sound_name, cam_index):
     now = datetime.now().strftime("%H:%M:%S")
+
+    # Load the saved phone number (if available)
+    try:
+        with open("numbers.txt", "r") as number_file:
+            phone_number = number_file.readline().strip()
+    except FileNotFoundError:
+        phone_number = "Not available"
+
     with open("log.txt", "a") as file:
         file.write(f"alarm: {sound_name}\n")
         file.write("face detection: true\n")
         file.write(f"time: {now}\n")
         file.write(f"camera: {cam_index}\n")
+        file.write(f"number: {phone_number}\n")
         file.write("____________________________\n")
+
 
         
 # Haar cascade
@@ -50,6 +66,10 @@ def start_detection():
                     sound_name=selected_sound.__name__,
                     cam_index=cam_index
                     )
+                threading.Thread(target=send_intruder_alert, daemon=True).start()
+
+                threading.Thread(target=push_latest_log, daemon=True).start()
+                
             elif len(faces) == 0:
                 sound_played = False
 
@@ -66,6 +86,17 @@ def start_detection():
         cv2.destroyAllWindows()
 
     threading.Thread(target=detection, daemon=True).start()
+
+def text_config():
+    subprocess.Popen(["python", "textsetting.py"])
+
+
+def logfun():
+    subprocess.Popen(["notepad.exe", "log.txt"])
+
+def textfun():
+    subprocess.Popen(["notepad.exe", "numbers.txt"])
+
 
 # --- Sound Selection Buttons ---
 def play_sound1():
@@ -116,6 +147,15 @@ sound2_button.grid(row=0, column=1, padx=10)
 # Sound Status Label
 status_label = ctk.CTkLabel(app, text="Selected Sound: None", font=ctk.CTkFont(size=12))
 status_label.pack(pady=(10, 0))
+
+textconfig_button = ctk.CTkButton(button_frame, text="configure text sending number", width=100, command=text_config)
+textconfig_button.grid(row=0, column=2, padx=10)
+
+log_button = ctk.CTkButton(button_frame, text="open detection logs", width=100, command=logfun)
+log_button.grid(row=1, column=1, pady=20)
+
+numberlog_button = ctk.CTkButton(button_frame, text="open number logs", width=100, command=textfun)
+numberlog_button.grid(row=1, column=2, pady=20)
 
 # Run the app
 app.mainloop()

@@ -141,6 +141,9 @@ app.title("Face Recognition System")
 label = ctk.CTkLabel(app, text="Face Recognition security", font=("Arial", 20))
 label.pack(pady=20)
 
+label = ctk.CTkLabel(app, text="S.A.D.I.A.S.C", font=("Arial", 25))
+label.pack(pady=10)
+
 upload_btn = ctk.CTkButton(app, text="Upload Face Image", command=upload_image)
 upload_btn.pack(pady=10)
 
