@@ -8,8 +8,9 @@ from datetime import datetime
 import threading
 from tkinter import filedialog
 import subprocess  
-from sound import playsound2,Playsound1
+from sound import playsound2, Playsound1
 import time
+
 # -------------------- Setup -------------------- #
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
@@ -53,7 +54,7 @@ encodeListKnown = FindEncoding(images)
 print("Encoding Complete ✅")
 
 # -------------------- Detection Function -------------------- #
-friendly_faces = ['roshan panda', 'Sunil reddy-vikash', 'roshan']  # Add friendly face names
+friendly_faces = ['roshan panda', 'Sunil reddy-vikash', 'roshan']
 triggered_friendly_faces = set()
 
 def start_detection(camera_index):
@@ -90,7 +91,6 @@ def start_detection(camera_index):
 
                 threading.Thread(target=markAttendance, args=(name,), daemon=True).start()
 
-                # 🚨 Friendly face detected, run main.py once
                 if name.lower() in [f.lower() for f in friendly_faces] and name not in triggered_friendly_faces:
                     triggered_friendly_faces.add(name)
                     print(f"🤝 Friendly face {name} detected! Launching main.py...")
@@ -117,7 +117,6 @@ def upload_image():
         dest_path = os.path.join(path, filename)
         shutil.copy(file_path, dest_path)
         print(f"📷 Uploaded: {filename}")
-    # Refresh encodings after upload
     refresh_encodings()
 
 def refresh_encodings():
@@ -134,30 +133,49 @@ def refresh_encodings():
     print("🔁 Encodings updated after upload.")
 
 # -------------------- GUI Setup -------------------- #
-app = ctk.CTk()
+app = ctk.CTk(fg_color="#12141A")
 app.geometry("400x500")
 app.title("Face Recognition System")
 
-label = ctk.CTkLabel(app, text="Face Recognition security", font=("Arial", 20))
+border_color = "#83FF9E"
+button_color = "#15161D"
+hover_color = "#83FF9E"
+
+label = ctk.CTkLabel(app, text="Face Recognition security", font=("Arial", 20), text_color="white")
 label.pack(pady=20)
 
-label = ctk.CTkLabel(app, text="S.A.D.I.A.S.C", font=("Arial", 25))
+label = ctk.CTkLabel(app, text="S.A.D.I.A.S.C", font=("Arial", 25), text_color="gray")
 label.pack(pady=10)
 
-upload_btn = ctk.CTkButton(app, text="Upload Face Image", command=upload_image)
+upload_btn = ctk.CTkButton(
+    app, text="Upload Face Image", command=upload_image,
+    fg_color=button_color, hover_color=hover_color,
+    border_color=border_color, border_width=2
+)
 upload_btn.pack(pady=10)
 
-# Camera buttons
 def handle_camera(index):
     threading.Thread(target=start_detection, args=(index,), daemon=True).start()
 
-btn1 = ctk.CTkButton(app, text="Start Detecting (Cam 0)", command=lambda: handle_camera(0))
+btn1 = ctk.CTkButton(
+    app, text="Start Detecting (Cam 0)", command=lambda: handle_camera(0),
+    fg_color=button_color, hover_color=hover_color,
+    border_color=border_color, border_width=2
+)
 btn1.pack(pady=10)
 
-btn2 = ctk.CTkButton(app, text="Start Detecting (Cam 1)", command=lambda: handle_camera(1))
+btn2 = ctk.CTkButton(
+    app, text="Start Detecting (Cam 1)", command=lambda: handle_camera(1),
+    fg_color=button_color, hover_color=hover_color,
+    border_color=border_color, border_width=2
+)
 btn2.pack(pady=10)
 
-btn3 = ctk.CTkButton(app, text="Start Detecting (Cam 2)", command=lambda: handle_camera(2))
+btn3 = ctk.CTkButton(
+    app, text="Start Detecting (Cam 2)", command=lambda: handle_camera(2),
+    fg_color=button_color, hover_color=hover_color,
+    border_color=border_color, border_width=2
+)
 btn3.pack(pady=10)
 
 app.mainloop()
