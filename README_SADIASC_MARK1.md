@@ -25,19 +25,6 @@ S.A.D.I.A.S.C. is a modular AI-based security surveillance system that detects, 
 
 ---
 
-## 📁 Folder Structure
-
-```
-📦S.A.D.I.A.S.C
- ┣ 📂images path          # Folder for face images (must exist or is auto-created)
- ┣ 📜attendance.csv       # Attendance log file
- ┣ 📜main.py              # Your response script triggered on authorized face
- ┣ 📜sadiasc_gui.py       # Main GUI code with detection logic
- ┗ 📜README.md            # This file
-```
-
----
-
 ## 💻 Requirements
 
 Install dependencies:
