@@ -1,5 +1,9 @@
-make the gui better 
+work on the web dashboard - detail logs page 
 
-almost work done 
+make 2 cluster 
+1. settings 
+2. user admin email password cluster (admin)
 
-work on the web dashboard 
+admin credential can be able to change in the sadiasc home interface only 
+
+there will be no registration page

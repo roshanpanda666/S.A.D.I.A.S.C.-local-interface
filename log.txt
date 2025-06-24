@@ -205,13 +205,13 @@ face detection: true
 time: 17:57:52
 camera: 1
 number: +917608946420
-____________________________
+______________________________
 alarm: Playsound1
 face detection: true
 time: 17:57:53
 camera: 1
 number: +917608946420
-____________________________
+__________________________
 alarm: playsound2
 face detection: true
 time: 18:30:58
