@@ -7,7 +7,7 @@ import subprocess
 from sendmessage import send_intruder_alert
 from dblogger import push_latest_log
 import os
-
+import json
 def log_detection_data(sound_name, cam_index):
     now = datetime.now().strftime("%H:%M:%S")
 
@@ -18,14 +18,20 @@ def log_detection_data(sound_name, cam_index):
     except FileNotFoundError:
         phone_number = "Not available"
 
-    with open("log.txt", "a") as file:
-        file.write(f"alarm: {sound_name}\n")
-        file.write("face detection: true\n")
-        file.write(f"time: {now}\n")
-        file.write(f"camera: {cam_index}\n")
-        file.write(f"number: {phone_number}\n")
-        file.write("____________________________\n")
+    # Prepare log dictionary
+    log_data = {
+        "alarm": sound_name,
+        "face_detection": True,
+        "time": now,
+        "camera": cam_index,
+        "number": phone_number
+    }
 
+    # Write as a JSON line to log.txt
+    with open("log.txt", "a") as file:
+        file.write(json.dumps(log_data) + "\n")
+
+    print("[Logger] Log written:", log_data)
 # Haar cascade
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 

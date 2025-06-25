@@ -218,3 +218,30 @@ time: 18:30:58
 camera: 1
 number: +917608946420
 ____________________________
+alarm: Playsound1
+face detection: true
+time: 21:30:02
+camera: 1
+number: +917608946420
+____________________________
+alarm: Playsound1
+face detection: true
+time: 21:30:02
+camera: 1
+number: +917608946420
+____________________________
+alarm: Playsound1
+face detection: true
+time: 21:30:04
+camera: 1
+number: +917608946420
+____________________________
+alarm: playsound2
+face_detection: true
+time: 21:43:31
+camera: 1
+number: +917608946420
+____________________________
+{"alarm": "playsound2", "face_detection": true, "time": "22:59:43", "camera": 1, "number": "+917608946420"}
+{"alarm": "playsound2", "face_detection": true, "time": "23:07:29", "camera": 1, "number": "+917608946420"}
+{"alarm": "playsound2", "face_detection": true, "time": "23:07:32", "camera": 1, "number": "+917608946420"}
