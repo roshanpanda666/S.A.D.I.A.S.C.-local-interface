@@ -1,19 +1,20 @@
 import customtkinter as ctk
 import os
-
+from admindatapush import push_from_file
+import time
 # --- Save email and password ---
 def save_admin_details():
     email = email_entry.get().strip()
     password = password_entry.get().strip()
 
     if email and password:
-        with open("admin-details.txt", "w") as f:
+        with open("admin-details.txt", "a") as f:
             f.write(f"{email}\n{password}\n")
         status_label.configure(text=f"Saved Email: {email}")
-        email_entry.delete(0, ctk.END)
-        password_entry.delete(0, ctk.END)
     else:
         status_label.configure(text="Both fields are required!")
+
+    push_from_file()
 
 # --- Style Variables ---
 bg_color = "#12141A"

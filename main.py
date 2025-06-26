@@ -90,8 +90,14 @@ def start_detection():
 def text_config():
     subprocess.Popen(["python", "textsetting.py"])
 
+def admin_config():
+    subprocess.Popen(["python", "admin_pwdchange.py"])
+
 def logfun():
     subprocess.Popen(["notepad.exe", "log.txt"])
+
+def seeadmin():
+    subprocess.Popen(["notepad.exe","admin-details.txt"])
 
 def textfun():
     subprocess.Popen(["notepad.exe", "numbers.txt"])
@@ -108,6 +114,9 @@ def play_sound2():
     status_label.configure(text="Selected Sound: 2")
 
 # --- GUI Setup ---
+import customtkinter as ctk
+
+# Setup
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
 
@@ -115,32 +124,30 @@ app = ctk.CTk(fg_color="#12141A")
 app.title("S.A.D.I.A.S.C.")
 app.geometry("480x500")
 
-# Style config
+# Style
 button_color = "#15161D"
 button_hover = "#1E1E1E"
 active_border_color = "#454545"
 
 # Title
-title_label = ctk.CTkLabel(app, text="S.A.D.I.A.S.C.", font=ctk.CTkFont(size=28, weight="bold"), text_color="#83FF9E")
-title_label.pack(pady=(20, 5))
+ctk.CTkLabel(app, text="S.A.D.I.A.S.C.", font=ctk.CTkFont(size=28, weight="bold"), text_color="#83FF9E").pack(pady=(20, 5))
 
 # Subtitle
-subtitle_label = ctk.CTkLabel(
+ctk.CTkLabel(
     app,
     text="Smart Anomaly Detection Intelligence and Surveillance Camera",
     font=ctk.CTkFont(size=14),
     wraplength=400,
     justify="center",
     text_color="white"
-)
-subtitle_label.pack(pady=5)
+).pack(pady=5)
 
-# Camera Entry
+# Camera Input
 camera_entry = ctk.CTkEntry(app, placeholder_text="Enter Camera Index (e.g., 0)", fg_color=button_color, border_color=active_border_color)
 camera_entry.pack(pady=15)
 
-# Start Detection Button
-start_button = ctk.CTkButton(
+# Start Button
+ctk.CTkButton(
     app,
     text="Start Detection",
     command=start_detection,
@@ -148,93 +155,38 @@ start_button = ctk.CTkButton(
     hover_color=button_hover,
     border_color=active_border_color,
     border_width=2
-)
-start_button.pack(pady=10)
+).pack(pady=10)
 
-# Sound Buttons
+# Buttons Container
 button_frame = ctk.CTkFrame(app, fg_color="transparent")
 button_frame.pack(pady=10)
 
-sound1_button = ctk.CTkButton(
-    button_frame,
-    text="Sound 1",
-    width=100,
-    command=play_sound1,
-    fg_color=button_color,
-    hover_color=button_hover,
-    border_color=active_border_color,
-    border_width=2
-)
-sound1_button.grid(row=0, column=1, padx=10)
+# Row 0 - Sound buttons
+ctk.CTkButton(button_frame, text="Sound 1", width=100, command=play_sound1, fg_color=button_color,
+              hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=0, column=0, padx=10)
+ctk.CTkButton(button_frame, text="Sound 2", width=100, command=play_sound2, fg_color=button_color,
+              hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=0, column=1, padx=10)
+ctk.CTkButton(button_frame, text="Sound 3", width=100, command=play_sound2, fg_color=button_color,
+              hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=0, column=2, padx=10)
 
-sound2_button = ctk.CTkButton(
-    button_frame,
-    text="Sound 2",
-    width=100,
-    command=play_sound2,
-    fg_color=button_color,
-    hover_color=button_hover,
-    border_color=active_border_color,
-    border_width=2
-)
-sound2_button.grid(row=0, column=2, padx=10)
+# Row 1 - Config buttons
+ctk.CTkButton(button_frame, text="Configure Number", width=100, command=text_config, fg_color=button_color,
+              hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=3, column=0, pady=10)
+ctk.CTkButton(button_frame, text="Register Admin", width=100, command=admin_config, fg_color=button_color,
+              hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=3, column=1, pady=10)
 
-sound3_button = ctk.CTkButton(
-    button_frame,
-    text="Sound 3",
-    width=100,
-    command=play_sound2,
-    fg_color=button_color,
-    hover_color=button_hover,
-    border_color=active_border_color,
-    border_width=2
-)
-sound3_button.grid(row=0, column=3, padx=10)
+# Row 2 - Logs buttons
+ctk.CTkButton(button_frame, text="Open Logs", width=100, command=logfun, fg_color=button_color,
+              hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=2, column=0, pady=10)
+ctk.CTkButton(button_frame, text="Open Numbers", width=100, command=textfun, fg_color=button_color,
+              hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=2, column=1, pady=10)
+ctk.CTkButton(button_frame, text="Open Admin Logs", width=100, command=seeadmin, fg_color=button_color,
+              hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=2, column=2, pady=10)
 
-textconfig_button = ctk.CTkButton(
-    button_frame,
-    text="Configure Number",
-    width=100,
-    command=text_config,
-    fg_color=button_color,
-    hover_color=button_hover,
-    border_color=active_border_color,
-    border_width=2
-)
-textconfig_button.grid(row=1, column=3, padx=10)
-
-# Sound Status Label
-status_label = ctk.CTkLabel(
-    app,
-    text="Selected Sound: None",
-    font=ctk.CTkFont(size=12),
-    text_color="white"
-)
+# Sound Status
+status_label = ctk.CTkLabel(app, text="Selected Sound: None", font=ctk.CTkFont(size=12), text_color="white")
 status_label.pack(pady=(10, 0))
 
-log_button = ctk.CTkButton(
-    button_frame,
-    text="Open Logs",
-    width=100,
-    command=logfun,
-    fg_color=button_color,
-    hover_color=button_hover,
-    border_color=active_border_color,
-    border_width=2
-)
-log_button.grid(row=1, column=1, pady=20)
-
-numberlog_button = ctk.CTkButton(
-    button_frame,
-    text="Open Numbers",
-    width=100,
-    command=textfun,
-    fg_color=button_color,
-    hover_color=button_hover,
-    border_color=active_border_color,
-    border_width=2
-)
-numberlog_button.grid(row=1, column=2, pady=20)
-
-# Run the app
+# Run
 app.mainloop()
+
