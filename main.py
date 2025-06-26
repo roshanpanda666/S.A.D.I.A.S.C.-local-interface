@@ -22,7 +22,7 @@ def log_detection_data(sound_name, cam_index):
     log_data = {
         "alarm": sound_name,
         "face_detection": True,
-        "time": now,
+        "detection": "intruder",
         "camera": cam_index,
         "number": phone_number
     }
