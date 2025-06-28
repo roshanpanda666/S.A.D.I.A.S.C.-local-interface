@@ -1,6 +1,7 @@
 import os
 from pymongo import MongoClient
 from dotenv import load_dotenv
+import bcrypt
 
 # Load MongoDB credentials from .env
 load_dotenv()
@@ -16,21 +17,23 @@ client = MongoClient(
 db = client["sadiasc_logs"]
 admin_collection = db["admin_users"]
 
-def push_admin_data(email, password):
+def push_admin_data(email, raw_password):
     """
-    Pushes email and password to the MongoDB 'admin_users' collection.
+    Hashes the password and pushes email + hashed password to MongoDB.
     """
     try:
-        doc = {"email": email, "password": password}
+        # Hash the password (don't modify the file data)
+        hashed_password = bcrypt.hashpw(raw_password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+        doc = {"email": email, "password": hashed_password}
         admin_collection.insert_one(doc)
-        print("[AdminSaver] Admin data pushed to MongoDB.")
+        print("[AdminSaver] Admin data (hashed) pushed to MongoDB.")
     except Exception as e:
         print(f"[AdminSaver Error] {e}")
 
 
 def push_from_file():
     """
-    Reads last two lines from admin-details.txt and pushes them to MongoDB.
+    Reads last two lines from admin-details.txt and pushes them to MongoDB with hashed password.
     """
     try:
         with open("admin-details.txt", "r") as f:
