@@ -9,3 +9,4 @@
 {"alarm": "playsound2", "face_detection": true, "detection": "intruder", "camera": 1, "number": "+917608946420", "time": "12:02:23"}
 {"alarm": "Playsound1", "face_detection": true, "detection": "intruder", "camera": 1, "number": "+917608946420", "time": "00:18:39"}
 {"alarm": "Playsound1", "face_detection": true, "detection": "intruder", "camera": 1, "number": "+917608946420", "time": "00:20:51"}
+{"alarm": "playsound2", "face_detection": true, "detection": "intruder", "camera": 1, "number": "+917608946420", "time": "00:36:00"}

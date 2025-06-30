@@ -103,6 +103,12 @@ def seeadmin():
 def textfun():
     subprocess.Popen(["notepad.exe", "numbers.txt"])
 
+def seeplot():
+    subprocess.Popen(["python","plot.py"])
+
+def seecmd():
+    subprocess.Popen("start cmd", shell=True)
+
 # --- Sound Selection Buttons ---
 def play_sound1():
     global selected_sound
@@ -183,6 +189,10 @@ ctk.CTkButton(button_frame, text="Open Numbers", width=100, command=textfun, fg_
               hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=2, column=1, pady=10)
 ctk.CTkButton(button_frame, text="Open Admin Logs", width=100, command=seeadmin, fg_color=button_color,
               hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=2, column=2, pady=10)
+ctk.CTkButton(button_frame, text="open detection plot", width=100, command=seeplot, fg_color=button_color,
+              hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=3, column=2, pady=10)
+ctk.CTkButton(button_frame, text="open shell </>", width=100, command=seecmd, fg_color=button_color,
+              hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=4, column=0, pady=10)
 
 # Sound Status
 status_label = ctk.CTkLabel(app, text="Selected Sound: None", font=ctk.CTkFont(size=12), text_color="white")
