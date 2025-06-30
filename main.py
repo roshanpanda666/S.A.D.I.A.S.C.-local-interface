@@ -24,7 +24,8 @@ def log_detection_data(sound_name, cam_index):
         "face_detection": True,
         "detection": "intruder",
         "camera": cam_index,
-        "number": phone_number
+        "number": phone_number,
+        "time":now
     }
 
     # Write as a JSON line to log.txt

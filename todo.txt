@@ -1,4 +1,4 @@
-make a file named setting-data.txt 
+make a file named settings-data.txt 
 and what ever changes will happen in the gui it will push that changes to the mongodb cluster 
 separate the data POST function make another script for that and call that function inside the gui 
 also make the function called when face is detected and authenticated write face-detected to the file 
