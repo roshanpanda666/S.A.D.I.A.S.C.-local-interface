@@ -43,7 +43,7 @@ for alarm_type, color, marker in [
         ax.scatter(x, y, label=f"{alarm_type}", color=color, marker=marker, s=80)
 
 # Customize plot
-ax.set_title("📸 Intruder Detections by Camera and Alarm", fontsize=14)
+ax.set_title("Intruder Detections by Camera and Alarm", fontsize=14)
 ax.set_xlabel("Time", fontsize=12)
 ax.set_ylabel("Camera ID", fontsize=12)
 plt.xticks(rotation=45)
