@@ -1,9 +1,9 @@
-work on the web dashboard - detail logs page 
+make a file named setting-data.txt 
+and what ever changes will happen in the gui it will push that changes to the mongodb cluster 
+separate the data POST function make another script for that and call that function inside the gui 
+also make the function called when face is detected and authenticated write face-detected to the file 
 
-make 2 cluster 
-1. settings 
-2. user admin email password cluster (admin)
 
-admin credential can be able to change in the sadiasc home interface only 
+make global variables as a module 
+what ever changes is happening call those variables inside the module and change according to it
 
-there will be no registration page
