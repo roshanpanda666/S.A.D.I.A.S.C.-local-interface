@@ -4,6 +4,7 @@ separate the data POST function make another script for that and call that funct
 also make the function called when face is detected and authenticated write face-detected to the file 
 
 
+
 make global variables as a module 
 what ever changes is happening call those variables inside the module and change according to it
 
