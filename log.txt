@@ -33,3 +33,5 @@
 {"alarm": "Playsound1", "face_detection": true, "detection": "intruder", "camera": 1, "number": "+917608946420", "time": "17:18:17"}
 {"alarm": "Playsound1", "face_detection": true, "detection": "intruder", "camera": 1, "number": "+917608946420", "time": "17:18:19"}
 {"alarm": "playsound2", "face_detection": true, "detection": "intruder", "camera": 1, "number": "+917608946420", "time": "17:35:51"}
+{"alarm": "playsound2", "face_detection": true, "detection": "intruder", "camera": 1, "number": "+917608946420", "time": "18:59:33"}
+{"alarm": "playsound2", "face_detection": true, "detection": "intruder", "camera": 1, "number": "+917608946420", "time": "18:59:34"}
