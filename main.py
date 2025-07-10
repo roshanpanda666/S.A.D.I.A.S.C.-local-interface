@@ -8,31 +8,44 @@ from sendmessage import send_intruder_alert
 from dblogger import push_latest_log
 import os
 import json
+
+# --- Logging Setting Change ---
+def log_setting_change(action_type, value=None):
+    log_entry = {
+        "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "action": action_type,
+        "value": value
+    }
+
+    with open("settings-data.txt", "a") as f:
+        f.write(json.dumps(log_entry) + "\n")
+
+    print("[Settings Logger] Entry:", log_entry)
+
+# --- Log Detection Data ---
 def log_detection_data(sound_name, cam_index):
     now = datetime.now().strftime("%H:%M:%S")
 
-    # Load the saved phone number (if available)
     try:
         with open("numbers.txt", "r") as number_file:
             phone_number = number_file.readline().strip()
     except FileNotFoundError:
         phone_number = "Not available"
 
-    # Prepare log dictionary
     log_data = {
         "alarm": sound_name,
         "face_detection": True,
         "detection": "intruder",
         "camera": cam_index,
         "number": phone_number,
-        "time":now
+        "time": now
     }
 
-    # Write as a JSON line to log.txt
     with open("log.txt", "a") as file:
         file.write(json.dumps(log_data) + "\n")
 
     print("[Logger] Log written:", log_data)
+
 # Haar cascade
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
@@ -48,6 +61,8 @@ def start_detection():
     cam_index = int(camera_entry.get())
     cap = cv2.VideoCapture(cam_index)
 
+    log_setting_change("detection_started", f"Camera {cam_index}")
+
     def detection():
         global sound_played
 
@@ -59,7 +74,6 @@ def start_detection():
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
 
-            # after face got detected
             if len(faces) > 0 and not sound_played:
                 sound_played = True
                 if selected_sound is not None:
@@ -70,7 +84,6 @@ def start_detection():
                     )
                 threading.Thread(target=send_intruder_alert, daemon=True).start()
                 threading.Thread(target=push_latest_log, daemon=True).start()
-
             elif len(faces) == 0:
                 sound_played = False
 
@@ -88,25 +101,33 @@ def start_detection():
 
     threading.Thread(target=detection, daemon=True).start()
 
+# --- Configuration Shortcuts ---
 def text_config():
+    log_setting_change("open_config", "textsetting.py")
     subprocess.Popen(["python", "textsetting.py"])
 
 def admin_config():
+    log_setting_change("open_config", "admin_pwdchange.py")
     subprocess.Popen(["python", "admin_pwdchange.py"])
 
 def logfun():
+    log_setting_change("open_file", "log.txt")
     subprocess.Popen(["notepad.exe", "log.txt"])
 
 def seeadmin():
-    subprocess.Popen(["notepad.exe","admin-details.txt"])
+    log_setting_change("open_file", "admin-details.txt")
+    subprocess.Popen(["notepad.exe", "admin-details.txt"])
 
 def textfun():
+    log_setting_change("open_file", "numbers.txt")
     subprocess.Popen(["notepad.exe", "numbers.txt"])
 
 def seeplot():
-    subprocess.Popen(["python","plot.py"])
+    log_setting_change("run_script", "plot.py")
+    subprocess.Popen(["python", "plot.py"])
 
 def seecmd():
+    log_setting_change("open_cmd", "cmd")
     subprocess.Popen("start cmd", shell=True)
 
 # --- Sound Selection Buttons ---
@@ -114,16 +135,15 @@ def play_sound1():
     global selected_sound
     selected_sound = Playsound1
     status_label.configure(text="Selected Sound: 1")
+    log_setting_change("sound_selected", "Playsound1")
 
 def play_sound2():
     global selected_sound
     selected_sound = playsound2
     status_label.configure(text="Selected Sound: 2")
+    log_setting_change("sound_selected", "playsound2")
 
 # --- GUI Setup ---
-import customtkinter as ctk
-
-# Setup
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
 
@@ -131,15 +151,12 @@ app = ctk.CTk(fg_color="#12141A")
 app.title("S.A.D.I.A.S.C.")
 app.geometry("480x500")
 
-# Style
 button_color = "#15161D"
 button_hover = "#1E1E1E"
 active_border_color = "#454545"
 
-# Title
 ctk.CTkLabel(app, text="S.A.D.I.A.S.C.", font=ctk.CTkFont(size=28, weight="bold"), text_color="#83FF9E").pack(pady=(20, 5))
 
-# Subtitle
 ctk.CTkLabel(
     app,
     text="Smart Anomaly Detection Intelligence and Surveillance Camera",
@@ -149,11 +166,9 @@ ctk.CTkLabel(
     text_color="white"
 ).pack(pady=5)
 
-# Camera Input
 camera_entry = ctk.CTkEntry(app, placeholder_text="Enter Camera Index (e.g., 0)", fg_color=button_color, border_color=active_border_color)
 camera_entry.pack(pady=15)
 
-# Start Button
 ctk.CTkButton(
     app,
     text="Start Detection",
@@ -164,40 +179,40 @@ ctk.CTkButton(
     border_width=2
 ).pack(pady=10)
 
-# Buttons Container
 button_frame = ctk.CTkFrame(app, fg_color="transparent")
 button_frame.pack(pady=10)
 
-# Row 0 - Sound buttons
 ctk.CTkButton(button_frame, text="Sound 1", width=100, command=play_sound1, fg_color=button_color,
               hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=0, column=0, padx=10)
+
 ctk.CTkButton(button_frame, text="Sound 2", width=100, command=play_sound2, fg_color=button_color,
               hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=0, column=1, padx=10)
+
 ctk.CTkButton(button_frame, text="Sound 3", width=100, command=play_sound2, fg_color=button_color,
               hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=0, column=2, padx=10)
 
-# Row 1 - Config buttons
 ctk.CTkButton(button_frame, text="Configure Number", width=100, command=text_config, fg_color=button_color,
               hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=3, column=0, pady=10)
+
 ctk.CTkButton(button_frame, text="Register Admin", width=100, command=admin_config, fg_color=button_color,
               hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=3, column=1, pady=10)
 
-# Row 2 - Logs buttons
 ctk.CTkButton(button_frame, text="Open Logs", width=100, command=logfun, fg_color=button_color,
               hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=2, column=0, pady=10)
+
 ctk.CTkButton(button_frame, text="Open Numbers", width=100, command=textfun, fg_color=button_color,
               hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=2, column=1, pady=10)
+
 ctk.CTkButton(button_frame, text="Open Admin Logs", width=100, command=seeadmin, fg_color=button_color,
               hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=2, column=2, pady=10)
+
 ctk.CTkButton(button_frame, text="open detection plot", width=100, command=seeplot, fg_color=button_color,
               hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=3, column=2, pady=10)
+
 ctk.CTkButton(button_frame, text="open shell </>", width=100, command=seecmd, fg_color=button_color,
               hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=4, column=0, pady=10)
 
-# Sound Status
 status_label = ctk.CTkLabel(app, text="Selected Sound: None", font=ctk.CTkFont(size=12), text_color="white")
 status_label.pack(pady=(10, 0))
 
-# Run
 app.mainloop()
-
