@@ -8,7 +8,8 @@ from sendmessage import send_intruder_alert
 from dblogger import push_latest_log
 import os
 import json
-
+import time
+from pushsettingdata import push_last_setting_to_mongo
 # --- Logging Setting Change ---
 def log_setting_change(action_type, value=None):
     log_entry = {
@@ -21,6 +22,10 @@ def log_setting_change(action_type, value=None):
         f.write(json.dumps(log_entry) + "\n")
 
     print("[Settings Logger] Entry:", log_entry)
+
+    time.sleep(1)
+
+    push_last_setting_to_mongo()
 
 # --- Log Detection Data ---
 def log_detection_data(sound_name, cam_index):
