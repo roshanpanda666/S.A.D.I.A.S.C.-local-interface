@@ -10,6 +10,7 @@ import os
 import json
 import time
 from pushsettingdata import push_last_setting_to_mongo
+from PIL import Image
 
 # -------------------- Global State --------------------
 current_state = {
@@ -89,6 +90,7 @@ def start_detection():
 
             for (x, y, w, h) in faces:
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 1)
+                cv2.imwrite("snapshot.jpg",frame)
 
             cv2.putText(frame, "Press Q to exit", (10, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 255), 2)
             cv2.imshow("Face Detection with Sound", frame)
@@ -113,6 +115,10 @@ def admin_config():
 def logfun():
     update_global_state("file", "log.txt")
     subprocess.Popen(["notepad.exe", "log.txt"])
+
+def opensnap():
+    img = Image.open("snapshot.jpg")
+    img.show()  # Opens using default image viewer
 
 def seeadmin():
     update_global_state("file", "admin-details.txt")
@@ -176,6 +182,7 @@ ctk.CTkButton(button_frame, text="Open Numbers", width=100, command=textfun, fg_
 ctk.CTkButton(button_frame, text="Open Admin Logs", width=100, command=seeadmin, fg_color=button_color, hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=2, column=2, pady=10)
 ctk.CTkButton(button_frame, text="open detection plot", width=100, command=seeplot, fg_color=button_color, hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=3, column=2, pady=10)
 ctk.CTkButton(button_frame, text="open shell </>", width=100, command=seecmd, fg_color=button_color, hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=4, column=0, pady=10)
+ctk.CTkButton(button_frame, text="open last snapshot", width=100, command=opensnap, fg_color=button_color, hover_color=button_hover, border_color=active_border_color, border_width=2).grid(row=4, column=1, pady=10)
 
 status_label = ctk.CTkLabel(app, text="Selected Sound: None", font=ctk.CTkFont(size=12), text_color="white")
 status_label.pack(pady=(10, 0))
