@@ -1,1 +1,1 @@
-{"time": "2025-07-10 19:02:51", "sound": "playsound2", "camera": 0, "config": "admin_pwdchange.py", "file": "admin-details.txt", "script": "plot.py", "cmd": "cmd"}
+{"time": "2025-07-13 20:06:05", "sound": 0, "camera": 0, "config": "admin_pwdchange.py", "file": "numbers.txt", "script": "plot.py", "cmd": 0}
